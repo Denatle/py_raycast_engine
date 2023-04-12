@@ -1,7 +1,6 @@
 use crate::camera_state::CameraState;
 use pyo3::prelude::*;
 
-
 #[pyclass]
 #[derive(FromPyObject)]
 pub struct GameState {

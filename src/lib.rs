@@ -21,11 +21,19 @@ pub const ANGLE_STEP: f32 = FOV / SIZE as f32;
 // A magic number.
 pub const WALL_HEIGHT: f32 = SIZE as f32 / 1.6;
 
+/// create_state(map: list[int], player_x: float, player_y: float, player_angle: float) -> builtins.GameState
+/// --
+///
+/// Returns GameState
 #[pyfunction]
 fn create_state(map: [u32; 32], player_x: f32, player_y: f32, player_angle: f32) -> PyResult<GameState> {
     Ok(GameState::new(map, player_x, player_y, player_angle))
 }
 
+/// edit_state(GameState: builtins.GameState, player_x: float, player_y: float, player_angle: float) -> bultins.GameState
+/// --
+///
+/// Returns edited GameState
 #[pyfunction]
 fn edit_state(game_state: &PyAny, player_x: f32, player_y: f32, player_angle: f32) -> PyResult<GameState> {
     let game_state: PyRef<GameState> = game_state.extract().unwrap();
@@ -33,6 +41,10 @@ fn edit_state(game_state: &PyAny, player_x: f32, player_y: f32, player_angle: f3
     Ok(game_state)
 }
 
+/// return_view(GameState: builtins.GameState) -> list[int, int, int]
+/// --
+///
+/// Returns view of player camera
 #[pyfunction]
 fn return_view(game_state: &PyAny) -> PyResult<Vec<(usize, i32, u32)>> {
     let game_state: PyRef<GameState> = game_state.extract().unwrap();

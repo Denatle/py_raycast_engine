@@ -42,12 +42,10 @@ if __name__ == "__main__":
         0b11111111111111111111111111111111,
     ]
 
-    # noinspection PyUnresolvedReferences
     state = raycast.create_state(Map, 16, 16, 0)
     for i in range(360):
-        # noinspection PyUnresolvedReferences
         state = raycast.edit_state(state, 16, 16, i / 360 * 6.282)
-        # noinspection PyUnresolvedReferences
+        print(state)
         data = raycast.return_view(state)
         img = Image.new("L", (SIZE, SIZE))
         draw = ImageDraw.Draw(img)
