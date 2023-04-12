@@ -70,3 +70,7 @@ docs/_build/
 
 # Pyenv
 .python-version
+/output.gif
+*.png
+*.gif
+*.mp4

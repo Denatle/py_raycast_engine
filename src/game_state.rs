@@ -26,5 +26,4 @@ impl GameState {
             map,
         }
     }
-
 }
