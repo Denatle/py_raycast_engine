@@ -1,7 +1,7 @@
 import raycast
 from PIL import Image, ImageDraw
 
-size = 500
+SIZE = 500
 
 if __name__ == "__main__":
     # 6.282 - 360
@@ -43,13 +43,16 @@ if __name__ == "__main__":
     ]
 
     # noinspection PyUnresolvedReferences
-    state = raycast.create_state(Map, 16, 16, 1.5705)
-    # noinspection PyUnresolvedReferences
-    data = raycast.return_view(state)
-    img = Image.new("L", (size, size))
-    draw = ImageDraw.Draw(img)
-    for line in data:
-        draw.line([(line[0], line[1]), (line[0], line[1] + line[2] - 1)],
-                  fill=(int(line[2] / (size / 2) * 255),),
-                  width=1)
-    img.save(f"img.png")
+    state = raycast.create_state(Map, 16, 16, 0)
+    for i in range(2):
+        # noinspection PyUnresolvedReferences
+        data = raycast.return_view(state)
+        img = Image.new("L", (SIZE, SIZE))
+        draw = ImageDraw.Draw(img)
+        for line in data:
+            draw.line([(line[0], line[1]), (line[0], line[1] + line[2] - 1)],
+                      fill=(int(line[2] / (SIZE / 2) * 255),),
+                      width=1)
+        img.save(f"img{i}.png")
+        # noinspection PyUnresolvedReferences
+        state = raycast.edit_state(state, 16, 16, 1.5705)

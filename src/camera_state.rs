@@ -70,9 +70,7 @@ impl CameraState {
         // return the distance from next_x and next_y to the player.
         distance(next_x, next_y)
     }
-}
 
-impl CameraState {
     /// Returns the nearest wall the ray intersects with on a horizontal grid line.
     fn horizontal_intersection(&self, angle: f32, map: [u32; 32]) -> f32 {
         // This tells you if the angle is "facing up"
@@ -130,9 +128,7 @@ impl CameraState {
         // return the distance from next_x and next_y to the player.
         distance(next_x, next_y)
     }
-}
 
-impl CameraState {
     /// Returns 500 wall heights from the player's perspective.
     pub fn get_view(&self, map: [u32; 32]) -> [i32; SIZE] {
         // The player's FOV is split in half by their viewing angle.
