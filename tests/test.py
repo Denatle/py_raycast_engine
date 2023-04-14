@@ -42,11 +42,12 @@ if __name__ == "__main__":
         0b11111111111111111111111111111111,
     ]
 
-    state = raycast.create_state(Map, 16, 16, 0)
+    settings_state = raycast.create_settings_state(size=SIZE)
+
+    game_state = raycast.create_game_state(Map, 16, 16, 0)
     for i in range(360):
-        state = raycast.edit_state(state, 16, 16, i / 360 * 6.282)
-        print(state)
-        data = raycast.return_view(state)
+        game_state = raycast.edit_game_state(game_state, 16, 16, i / 360 * 6.282)
+        data = raycast.get_view(game_state, settings_state)
         img = Image.new("L", (SIZE, SIZE))
         draw = ImageDraw.Draw(img)
         draw.rectangle((0, 0, 500, 250), fill=(22,))

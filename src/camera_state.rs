@@ -2,7 +2,7 @@ use core::f32::consts::{PI, FRAC_PI_2};
 use libm::{ceilf, cosf, fabsf, floorf, tanf};
 use pyo3::prelude::*;
 use crate::utils::{distance, point_in_wall};
-use crate::{SIZE, HALF_FOV, WALL_HEIGHT, ANGLE_STEP};
+use crate::settings_state::SettingsState;
 
 #[pyclass]
 #[derive(FromPyObject)]
@@ -130,19 +130,19 @@ impl CameraState {
     }
 
     /// Returns 500 wall heights from the player's perspective.
-    pub fn get_view(&self, map: [u32; 32]) -> [i32; SIZE] {
+    pub fn get_view(&self, map: [u32; 32], settings: &PyRef<SettingsState>) -> Vec<i32> {
         // The player's FOV is split in half by their viewing angle.
         // In order to get the ray's first angle we must
         // add half the FOV to the player's angle to get
         // the edge of the player's FOV.
-        let starting_angle = self.player_angle + HALF_FOV;
+        let starting_angle = self.player_angle + settings.fov * 0.5;
 
-        let mut walls = [0; SIZE];
+        let mut walls = vec![0; settings.size];
 
         for (idx, wall) in walls.iter_mut().enumerate() {
             // `idx` is what number ray we are, `wall` is
             // a mutable reference to a value in `walls`.
-            let angle = starting_angle - idx as f32 * ANGLE_STEP;
+            let angle = starting_angle - idx as f32 * settings.angle_step;
 
             // Get both the closest horizontal and vertical wall
             // intersections for this angle.
@@ -152,7 +152,7 @@ impl CameraState {
             // Get the minimum of the two distances and
             // "convert" it into a wall height.
 
-            *wall = (WALL_HEIGHT / (f32::min(h_dist, v_dist) * cosf(angle - self.player_angle))) as i32;
+            *wall = (settings.wall_height / (f32::min(h_dist, v_dist) * cosf(angle - self.player_angle))) as i32;
         }
 
         walls
