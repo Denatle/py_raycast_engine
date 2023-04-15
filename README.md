@@ -73,4 +73,4 @@ if __name__ == "__main__":
  - [x] Make it work
  - [ ] Make description
  - [ ] Docs
- - [ ] Publish repository
+ - [x] Publish repository
