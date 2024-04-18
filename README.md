@@ -1,6 +1,6 @@
 # py_raycast_engine
 
-Example of use:
+Example of usage:
 
 ```py
 import raycast
