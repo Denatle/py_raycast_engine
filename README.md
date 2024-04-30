@@ -1,5 +1,5 @@
 # py_raycast_engine
-
+![output example](/output.gif)\
 Example of usage:
 
 ```py
